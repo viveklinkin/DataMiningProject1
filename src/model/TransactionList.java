@@ -1,5 +1,8 @@
 package model;
 
-public class TransactionList {
 
+import java.util.Map;
+
+public class TransactionList {
+	private Map<Integer, Transaction> transactions;
 }

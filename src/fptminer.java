@@ -1,10 +1,10 @@
 
 
-
 public class fptminer {
 	public static void main(String args[]){
 		validate(args);
 		long startTime = System.currentTimeMillis();
+		
 		
 		
 		long endTime   = System.currentTimeMillis();
