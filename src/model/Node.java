@@ -16,18 +16,9 @@ public class Node {
 	private String name;
 	
 	//TODO: decide on how to present an item in the itemset
-	//private String item_name
-	
-	//The set of child nodes in the tree
 	private Map<String, Node> children;
-	
-	//support for each item in the set
 	private Map<Integer, Integer> support;
-	
-	//The parent node
 	private Node parent;
-	
-	//The number of times it occurs
 	private long count;
 	
 	//Constructor
