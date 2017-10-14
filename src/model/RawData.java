@@ -51,10 +51,10 @@ public class RawData implements Comparator<Integer> {
     }
 
     //Convert raw data into transactions. This needs to be done to preserve order.
-    public TransactionList toSortedTransactionList() {
+    public DataSet toSortedTransactionList() {
         hsortByFreqDecreasing();
 
-        TransactionList res = new TransactionList();
+        DataSet res = new DataSet();
         res.setItemFrequency(itemFrequency);
 
         for (Entry<Integer, List<Integer>> currentEntry : data.entrySet()) {

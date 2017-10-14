@@ -1,25 +1,27 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 public class Transaction {
 
     // Transaction ID
     private int tid;
     // Set of items in the transaction
-    private LinkedHashSet<Integer> items;
+    private List<Integer> items;
 
     public Transaction(int id) {
         this.tid = id;
-        this.items = new LinkedHashSet<>();
+        this.items = new ArrayList<>();
     }
     
-    public Transaction(int id, LinkedHashSet<Integer> items){
+    public Transaction(int id, List<Integer> items){
         this.tid = tid;
         this.items = items;
     }
     
-    public LinkedHashSet<Integer> getItems(){
+    public List<Integer> getItems(){
         return items;
     }
 

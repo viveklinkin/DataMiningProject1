@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package preprocess;
+package proc;
 
 import java.util.List;
 import model.RawData;
-import model.TransactionList;
+import model.DataSet;
 import static util.FileOps.readFile;
 import util.Parser;
 
@@ -15,15 +15,21 @@ import util.Parser;
  *
  * @author vivek
  */
-public class DataFetcher {
-    String inputFile;
-    public DataFetcher(String inputFile){
+public class Preprocess {
+    private String inputFile;
+    public Preprocess(String inputFile){
         this.inputFile = inputFile;
     }
     
-    public TransactionList fetch(){
+    public DataSet fetch(){
         RawData data = Parser.parseFile(inputFile);
-        TransactionList tl = data.toSortedTransactionList();
+        DataSet tl = data.toSortedTransactionList();
+        return tl;
+    }
+    
+    public static DataSet fetch(String file){
+        RawData data = Parser.parseFile(file);
+        DataSet tl = data.toSortedTransactionList();
         return tl;
     }
 }
