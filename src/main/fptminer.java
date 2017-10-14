@@ -29,14 +29,16 @@ public class fptminer {
          */
 
         startTimer();
-
+        System.out.println("Fetching Data");
         Preprocess preprocessor = new Preprocess(inputfile);
         DataSet data = preprocessor.fetch();
         System.out.print("...Done\n");
-
+        
+        System.out.print("Constructing FPTree");
         FPTreeBuilder fptBuilder = new FPTreeBuilder();
         fptBuilder.buildFPTreeFromDataSet(data);
         FPTree tree = fptBuilder.getTree();
+        System.out.print("..Done\n");
         
         stopTimer();
     }
