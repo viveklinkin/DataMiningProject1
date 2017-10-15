@@ -5,10 +5,8 @@
  */
 package proc;
 
-import java.util.List;
 import model.RawData;
 import model.DataSet;
-import static util.FileOps.readFile;
 import util.Parser;
 
 /**
@@ -16,18 +14,20 @@ import util.Parser;
  * @author vivek
  */
 public class Preprocess {
+
     private String inputFile;
-    public Preprocess(String inputFile){
+
+    public Preprocess(String inputFile) {
         this.inputFile = inputFile;
     }
-    
-    public DataSet fetch(){
+
+    public DataSet fetch() {
         RawData data = Parser.parseFile(inputFile);
         DataSet tl = data.toSortedTransactionList();
         return tl;
     }
-    
-    public static DataSet fetch(String file){
+
+    public static DataSet fetch(String file) {
         RawData data = Parser.parseFile(file);
         DataSet tl = data.toSortedTransactionList();
         return tl;

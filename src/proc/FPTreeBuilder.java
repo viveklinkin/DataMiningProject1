@@ -7,7 +7,6 @@ package proc;
 
 import model.DataSet;
 import model.FPTree;
-import model.Node;
 import model.Transaction;
 
 /**
@@ -15,24 +14,25 @@ import model.Transaction;
  * @author vivek
  */
 public class FPTreeBuilder {
+
     private FPTree tree;
-    
-    public FPTreeBuilder(){
+
+    public FPTreeBuilder() {
         tree = new FPTree();
     }
-    
-    public void buildFPTreeFromDataSet(DataSet data){
-        for(Transaction currentTransaction: data.getTransactions()){
+
+    public void buildFPTreeFromDataSet(DataSet data) {
+        for (Transaction currentTransaction : data.getTransactions()) {
             addTransaction(currentTransaction);
         }
     }
-    
-    public void addTransaction(Transaction t){
+
+    public void addTransaction(Transaction t) {
         tree.addTransaction(t.getItems());
     }
-    
-    public FPTree getTree(){
+
+    public FPTree getTree() {
         return this.tree;
     }
-    
+
 }

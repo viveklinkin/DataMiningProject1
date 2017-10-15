@@ -12,7 +12,6 @@ import java.util.List;
 public class FileOps {
 
     public static List<String> readFile(String filePath) {
-        System.out.println("Opening file: " + filePath);
         File f = new File(filePath);
         List<String> res = new ArrayList<>();
         BufferedReader br = null;
@@ -34,7 +33,6 @@ public class FileOps {
     }
 
     public static void writeFile(String filePath, String data) {
-        System.out.println("Writing to file: " + filePath);
         File f = new File(filePath);
         BufferedWriter bw;
 
@@ -50,7 +48,6 @@ public class FileOps {
     }
 
     public static void writeFile(String filePath, List<String> data) {
-        System.out.println("Writing to file: " + filePath);
         File f = new File(filePath);
         BufferedWriter bw;
 
