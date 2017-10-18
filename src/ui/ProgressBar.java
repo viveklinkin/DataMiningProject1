@@ -34,7 +34,7 @@ public class ProgressBar extends JPanel implements Runnable {
         bar.setValue(newValue);
     }
 
-    public static JFrame getStatusForDataSet(int max) {
+    public JFrame getStatusForDataSet(int max) {
 
         final ProgressBar iter = new ProgressBar(max);
         JFrame frame = new JFrame("Progress Bar Example");
@@ -43,6 +43,9 @@ public class ProgressBar extends JPanel implements Runnable {
         frame.pack();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        Thread t = new Thread(this);
+        t.setPriority(Thread.MIN_PRIORITY);
+        t.start();
         
         return frame;
     }

@@ -38,6 +38,10 @@ public class DataSet {
         this.itemFrequency = itemFrequency;
     }
 
+    public Map<Integer, Integer> getItemFrequency() {
+        return itemFrequency;
+    }
+
     public int getFrequencyOf(Integer i1) {
         return itemFrequency.get(i1);
     }

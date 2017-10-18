@@ -1,8 +1,12 @@
 package main;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import model.DataSet;
 import model.FPTree;
+import model.ItemSet;
+import proc.FPGrowth;
 import proc.FPTreeBuilder;
 import proc.Preprocess;
 import util.Parser;
@@ -48,8 +52,8 @@ public class fptminer {
         //int x = tree.getRoot().getChild(1).getChild(2).getSupportCount();
         stopProcess();
 
-        System.out.print("Performing FPGrowth");
-        //List<ItemSet> sample = FPGrowth.getFrequentItemSets(tree, minsup);
+        System.out.print("Performing FPGrowth and generating frequent itemsets");
+        //List<ItemSet> frequentItemSets = FPGrowth.getFrequentItemSets(tree, minsup);
         System.out.print("..Done\n" + Parser.max + "\n");
 
 //        for(ItemSet s: sample){

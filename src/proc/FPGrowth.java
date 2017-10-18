@@ -6,66 +6,52 @@
 package proc;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import imodel.Node;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import model.FPTree;
-import model.FPNode;
 import model.ItemSet;
-
 
 /**
  *
  * @author vivek
  */
-public class FPGrowth {
+public class FPGrowth implements Comparator<Integer> {
 
-    public static List<ItemSet> getFrequentItemSets(FPTree tree, int minsup) {
-        List<ItemSet> itemSetList = getAllItemSets(tree);
-        itemSetList = eliminateInfrequentItemSets(itemSetList, minsup);
-        return itemSetList;
+    private FPTree tree;
+    private int minsup;
+    
+    public FPGrowth(FPTree tree, int minsup){
+        this.tree = tree;
+        this.minsup = minsup;
     }
-
-    public static List<ItemSet> getAllItemSets(FPTree tree) {
+    public List<ItemSet> getFrequentItemSets() {
         List<ItemSet> result = new ArrayList<>();
-        for (Entry<Integer, List<Node>> currentEntry : tree.getLinkedLists().entrySet()) {
-            result.addAll(generateItemSetForANodeSet(currentEntry.getValue()));
+        for(List<Node> currentNode: tree.getLinkedLists().values()){
+            List<ItemSet> uproot = uprootAll(currentNode);
+            uproot = filter((Integer)currentNode.get(0).getItemId(), uproot, minsup);
+            
         }
         return result;
     }
 
-    public static List<ItemSet> eliminateInfrequentItemSets(List<ItemSet> itemSets, int minsup) {
-        Iterator iter = itemSets.iterator();
-        while (iter.hasNext()) {
-            if (((ItemSet) iter.next()).getSupport() < minsup) {
-                iter.remove();
-            }
-        }
-        return itemSets;
-    }
-
-    private static List<ItemSet> generateItemSetForANodeSet(List<Node> entry) {
+    private List<ItemSet> uprootAll(List<Node> entry) {
         List<ItemSet> itemSet = new ArrayList<>();
 
         List<Node> list = entry;
         for (Node nodeTraverse : list) {
             Node currentNode = nodeTraverse;
             int supportCount = nodeTraverse.getSupportCount();
-            List<Integer> currentItemSet = new ArrayList<>();
-            currentItemSet.add((Integer)currentNode.getItemId());
+            Set<Integer> currentItemSet = new LinkedHashSet<>();
             while (!currentNode.isTopNode()) {
                 currentNode = currentNode.getParent();
-                currentItemSet.add(0, (Integer)currentNode.getItemId());
-
+                currentItemSet.add((Integer) currentNode.getItemId());
                 ItemSet tempItemSet = new ItemSet(currentItemSet, supportCount);
-
-                ItemSet tempItemSet2 = contains(itemSet, tempItemSet);
-                if (tempItemSet2 != null) {
-                    tempItemSet2.addSupport(supportCount);
-                } else {
-                    itemSet.add(tempItemSet);
-                }
+                itemSet.add(tempItemSet);
             }
 
         }
@@ -73,13 +59,38 @@ public class FPGrowth {
         return itemSet;
     }
 
-    private static ItemSet contains(List<ItemSet> set, ItemSet s) {
-        for (ItemSet x : set) {
-            if (x.equals(s)) {
-                return x;
+//    private ItemSet contains(List<ItemSet> set, ItemSet s) {
+//        for (ItemSet x : set) {
+//            if (x.equals(s)) {
+//                return x;
+//            }
+//        }
+//        return null;
+//    }
+    
+    private List<ItemSet> filter(int suffix, List<ItemSet> isl, int minsup){
+        List<ItemSet> finalList;
+        List<Integer> getAllUniqueItems = getAllUniqueItems(isl);
+        
+        
+        return isl;
+    }
+    private List<Integer> getAllUniqueItems(List<ItemSet> list){
+        Set<Integer> y = new HashSet<>();
+        for(ItemSet is: list){
+            for(int m : is.getItems()){
+                y.add(m);
             }
         }
-        return null;
+        List<Integer> x = new ArrayList<>(y);
+        Collections.sort(x, this);
+        return x;
     }
+
+    @Override
+    public int compare(Integer t, Integer t1) {
+        return (this.tree.getItemFrequency().get(t) < this.tree.getItemFrequency().get(t1)) ? -1 : 1;
+    }
+    
 
 }

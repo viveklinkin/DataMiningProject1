@@ -6,7 +6,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -15,10 +17,10 @@ import java.util.List;
 public class ItemSet {
 
     private int support;
-    private List<Integer> items;
+    private Set<Integer> items;
 
-    public ItemSet(List<Integer> items, int support) {
-        this.items = new ArrayList<>(items);
+    public ItemSet(Set<Integer> items, int support) {
+        this.items = items;
         this.support = support;
     }
 
@@ -30,12 +32,24 @@ public class ItemSet {
         return support;
     }
 
-    public List<Integer> getItems() {
+    public Set<Integer> getItems() {
         return items;
     }
 
-    public void setItems(List<Integer> items) {
+    public void setItems(Set<Integer> items) {
         this.items = items;
+    }
+    
+    public boolean contains(int i){
+        return items.contains(i);
+    }
+    public boolean contains(Collection<Integer> i){
+        for(int x : i){
+            if(!items.contains(x)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

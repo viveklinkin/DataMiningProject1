@@ -25,6 +25,7 @@ public class FPTreeBuilder {
         for (Transaction currentTransaction : data.getTransactions()) {
             addTransaction(currentTransaction);
         }
+        tree.setItemFrequency(data.getItemFrequency());
     }
 
     public void addTransaction(Transaction t) {

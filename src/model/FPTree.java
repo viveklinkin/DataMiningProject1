@@ -19,6 +19,8 @@ import java.util.Map;
 public class FPTree extends AFPTree<Node, Integer> {
 
     protected Map<Integer, List<Node>> linkedList;
+        
+    private Map<Integer, Integer> itemFrequency;
 
     public FPTree() {
         root = new FPNode(this, null, -1);
@@ -49,4 +51,13 @@ public class FPTree extends AFPTree<Node, Integer> {
     public void setLinkedList(Map<Integer, List<Node>> linkedList) {
         this.linkedList = linkedList;
     }
+
+    public Map<Integer, Integer> getItemFrequency() {
+        return itemFrequency;
+    }
+
+    public void setItemFrequency(Map<Integer, Integer> itemFrequency) {
+        this.itemFrequency = itemFrequency;
+    }
+
 }
