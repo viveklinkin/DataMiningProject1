@@ -18,8 +18,12 @@ public interface Node<I> {
     public void addSupport(int a);
 
     public int getSupportCount();
+    
+    public void setSupportCount(int i);
 
     public Node getParent();
+    
+    public void setParent(Node n);
 
     public I getItemId();
 
@@ -34,6 +38,10 @@ public interface Node<I> {
     public boolean isLeafNode();
 
     public Node getChild(I i);
+    
+    public Node copy();
+    
+    public void setChildren(Map<I, Node> m);
     
     public abstract Node defaultNode(I t);
 

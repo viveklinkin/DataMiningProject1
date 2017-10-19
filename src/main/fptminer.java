@@ -1,7 +1,9 @@
 package main;
 
+import imodel.Node;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import model.DataSet;
 import model.FPTree;
@@ -28,7 +30,7 @@ public class fptminer {
         //validate(args);
         Scanner sc = new Scanner(System.in);
 
-        int minsup = 2;                             //(args[0]);
+        int minsup = 10;                             //(args[0]);
         int minconf = 10;                            //(args[1]);
         String inputfile = "/home/vivek/large";      //args[2];
         String outputfile = "nothingfornow";         //args[3];
@@ -51,14 +53,29 @@ public class fptminer {
 
         //int x = tree.getRoot().getChild(1).getChild(2).getSupportCount();
         stopProcess();
+        
+//        Map<Integer, List<Node>>meta = tree.getMeta();
+//        tree.project(2);
+//        tree.project(1);
+//        print(tree.getMeta());
+//        tree.applyMeta(meta);
+//        tree.project(1);
+//        System.out.print(tree.getItemFrequency());
+//        tree.applyMeta(meta);
+//        print(tree.getMeta());
 
         System.out.print("Performing FPGrowth and generating frequent itemsets");
-        //List<ItemSet> frequentItemSets = FPGrowth.getFrequentItemSets(tree, minsup);
-        System.out.print("..Done\n" + Parser.max + "\n");
-
-//        for(ItemSet s: sample){
-//            System.out.println(s.getItems() + ":" + s.getSupport());
-//        }
+        FPGrowth fpg = new FPGrowth(tree, minsup);
+        Map<Integer, List<ItemSet>> frequentItemSets = fpg.performFPGrowth();
+        System.out.println("..Done" + frequentItemSets.size());
+        
+        for(Entry<Integer, List<ItemSet>> s: frequentItemSets.entrySet()){
+            System.out.print(s.getKey() + ":{");
+            for(ItemSet curr: s.getValue()){
+                System.out.print(curr.getItems()+ ",");
+            }
+            System.out.print("}");
+        }
         stopTimer();
     }
 
@@ -77,7 +94,7 @@ public class fptminer {
         if (startTime == 0) {
             throw new RuntimeException("Timer stopped without start");
         }
-        System.out.println("Runtime: "
+        System.out.println("\nRuntime: "
                 + (double) (System.currentTimeMillis() - startTime) / 1000.0
                 + "s");
     }
@@ -89,5 +106,16 @@ public class fptminer {
     }
     private static void stopProcess(){
         isRunning = false;
+    }
+    
+    private static void print(Map<Integer, List<Node>> meta){
+        for(Entry<Integer, List<Node>> entry : meta.entrySet()){
+            System.out.print(entry.getKey() + ":[");
+            for(Node no: entry.getValue()){
+                System.out.print(no.getSupportCount() + ",");
+            }
+            System.out.print("]");
+        }
+        System.out.println();
     }
 }

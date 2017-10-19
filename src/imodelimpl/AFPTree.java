@@ -18,9 +18,12 @@ import java.util.List;
 public abstract class AFPTree<N extends Node, I> implements Tree<N, I> {
 
     protected N root;
+    protected boolean empty = true;
+    
 
     @Override
     public void addTransaction(List<I> items) {
+        empty = false;
         if (items.isEmpty()) {
             return;
         }
@@ -44,5 +47,10 @@ public abstract class AFPTree<N extends Node, I> implements Tree<N, I> {
         this.root = root;
     }
     
+    public boolean isEmpty(){
+        return empty;
+    }
+    
     public abstract void addNodeToLinkedList(I t, N n);
+    public abstract void project(I i);
 }

@@ -10,6 +10,7 @@ public class DataSet {
 
     private Map<Integer, Transaction> transactions;
     private Map<Integer, Integer> itemFrequency;
+    private List<Integer> lexOrder;
 
     public DataSet() {
         itemFrequency = new HashMap<>();
@@ -59,5 +60,13 @@ public class DataSet {
             tl.add(currentEntry.getValue());
         }
         return tl;
+    }
+
+    public void setLexOrder(List<Integer> lexOrder) {
+        this.lexOrder = lexOrder;
+    }
+
+    public List<Integer> getLexOrder() {
+        return lexOrder;
     }
 }

@@ -5,6 +5,7 @@
  */
 package proc;
 
+import java.util.Map.Entry;
 import model.DataSet;
 import model.FPTree;
 import model.Transaction;
@@ -26,6 +27,8 @@ public class FPTreeBuilder {
             addTransaction(currentTransaction);
         }
         tree.setItemFrequency(data.getItemFrequency());
+        tree.setLexOrder(data.getLexOrder());
+        
     }
 
     public void addTransaction(Transaction t) {

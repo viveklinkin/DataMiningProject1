@@ -14,4 +14,5 @@ import java.util.List;
 public interface Tree <N, I> {
     public N getRoot();
     public void addTransaction(List<I> l);
+    public boolean isEmpty();
 }

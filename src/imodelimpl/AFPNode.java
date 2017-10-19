@@ -18,7 +18,7 @@ public abstract class AFPNode<I> implements Node<I> {
 
     protected I itemId;
     protected Map<I, Node> children;
-    protected AFPNode parent;
+    protected Node parent;
     protected int supportCount;
     protected AFPTree context;
 
@@ -70,6 +70,8 @@ public abstract class AFPNode<I> implements Node<I> {
     public int getSupportCount() {
         return supportCount;
     }
+    
+    @Override
     public void setSupportCount(int supportCount) {
         this.supportCount = supportCount;
     }
@@ -97,7 +99,14 @@ public abstract class AFPNode<I> implements Node<I> {
         return parent;
     }
 
-    public void setParent(AFPNode parent) {
+    public void setParent(Node parent) {
         this.parent = parent;
     }
+
+    @Override
+    public void setChildren(Map<I, Node> children) {
+        this.children = children;
+    }
+    
+    
 }

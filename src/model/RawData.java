@@ -21,6 +21,7 @@ public class RawData implements Comparator<Integer> {
 
     private Map<Integer, List<Integer>> data;
     private Map<Integer, Integer> itemFrequency;
+    private List<Integer> lexOrder;
 
     public RawData() {
         data = new HashMap<>();
@@ -60,7 +61,9 @@ public class RawData implements Comparator<Integer> {
         for (Entry<Integer, List<Integer>> currentEntry : data.entrySet()) {
             res.addTransaction(currentEntry.getKey(), currentEntry.getValue());
         }
-
+        lexOrder = new ArrayList<>(res.getItemFrequency().keySet());
+        Collections.sort(lexOrder, this);
+        res.setLexOrder(lexOrder);
         return res;
     }
 
@@ -73,6 +76,7 @@ public class RawData implements Comparator<Integer> {
 
     @Override
     public int compare(Integer t, Integer t1) {
+        if((int)this.itemFrequency.get(t) == (int)this.itemFrequency.get(t1)) return 0;
         return (this.itemFrequency.get(t) < this.itemFrequency.get(t1)) ? 1 : -1;
     }
 }

@@ -23,6 +23,10 @@ public class ItemSet {
         this.items = items;
         this.support = support;
     }
+    
+    public void add(Integer i){
+        items.add(i);
+    }
 
     public void addSupport(int supp) {
         support += supp;
