@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package imodelimpl;
+package main;
 
-import imodel.Node;
-import imodel.Tree;
+import main.Node;
+import main.Tree;
 import java.util.List;
 
 /**
+ * Abstract implementation of the tree class
  *
  * @author vivek
  * @param <N>
@@ -19,7 +15,6 @@ public abstract class AFPTree<N extends Node, I> implements Tree<N, I> {
 
     protected N root;
     protected boolean empty = true;
-    
 
     @Override
     public void addTransaction(List<I> items) {
@@ -46,11 +41,12 @@ public abstract class AFPTree<N extends Node, I> implements Tree<N, I> {
     public void setRoot(N root) {
         this.root = root;
     }
-    
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return empty;
     }
-    
+
     public abstract void addNodeToLinkedList(I t, N n);
+
     public abstract void project(I i);
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package main;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,13 +73,17 @@ public class ItemSet {
         if (o instanceof ItemSet) {
             ItemSet is = (ItemSet) o;
             if(is.getItems().size() != this.getItems().size())return false;
-            List<Integer> 
-                    l1 = new ArrayList<>(this.getItems()),
-                    l2 = new ArrayList<>(is.getItems());
-            
-            l2.removeAll(this.getItems());
-            l1.removeAll(is.getItems());
-            return (l1.isEmpty() && l2.isEmpty());
+            for(int x: is.getItems()){
+                if(!contains(x)){
+                    return false;
+                }
+            }
+            for(int x: getItems()){
+                if(!is.contains(x)){
+                    return false;
+                }
+            }
+            return true;
         }
         return false;
     }

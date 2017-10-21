@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proc;
+package main;
 
 import java.util.Map.Entry;
-import model.DataSet;
-import model.FPTree;
-import model.Transaction;
+import main.DataSet;
+import main.FPTree;
+import main.Transaction;
 
 /**
  *

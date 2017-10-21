@@ -1,11 +1,11 @@
-package model;
+package main;
 
 /**
  * @author vaidy083
  */
-import imodel.Node;
-import imodelimpl.AFPNode;
-import imodelimpl.AFPTree;
+import main.Node;
+import main.AFPNode;
+import main.AFPTree;
 
 public class FPNode extends AFPNode<Integer> {
 

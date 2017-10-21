@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package main;
 
 import java.util.List;
-import model.RawData;
+import main.RawData;
 
 /**
  *

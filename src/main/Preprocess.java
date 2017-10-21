@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proc;
+package main;
 
-import model.RawData;
-import model.DataSet;
-import util.Parser;
 
 /**
  *

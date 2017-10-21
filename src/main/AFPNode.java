@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package imodelimpl;
+package main;
 
 import java.util.HashMap;
 import java.util.Map;
-import imodel.Node;
+import main.Node;
 import java.util.List;
 
 /**
+ * Abstract implementation of the node class
  *
  * @author vivek
  */
@@ -70,12 +66,12 @@ public abstract class AFPNode<I> implements Node<I> {
     public int getSupportCount() {
         return supportCount;
     }
-    
+
     @Override
     public void setSupportCount(int supportCount) {
         this.supportCount = supportCount;
     }
-    
+
     @Override
     public Node getChild(I i1) {
         return children.get(i1);
@@ -99,6 +95,7 @@ public abstract class AFPNode<I> implements Node<I> {
         return parent;
     }
 
+    @Override
     public void setParent(Node parent) {
         this.parent = parent;
     }
@@ -107,6 +104,5 @@ public abstract class AFPNode<I> implements Node<I> {
     public void setChildren(Map<I, Node> children) {
         this.children = children;
     }
-    
-    
+
 }
