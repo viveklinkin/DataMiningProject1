@@ -6,7 +6,9 @@
 package main.helper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -27,5 +29,23 @@ public class Combinatorics {
             output.add(curr);
         }
         return output;
+    }
+    
+    public static List<Set<Integer>> allSplits(final Set<Integer> integerSet){
+    	List<Set<Integer>> res = new ArrayList<>();
+    	List<Integer> integerList = new ArrayList<>(integerSet);
+    	int n = integerList.size();
+        for (int i = 0; i < (1 << n); i++) {
+            List<Integer> curr = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) > 0) {
+                    curr.add(integerList.get(j));
+                }
+            }
+            if(curr.size() != 0 && curr.size() != n){
+            	res.add(new HashSet<>(curr));
+            }
+        }
+        return res;
     }
 }

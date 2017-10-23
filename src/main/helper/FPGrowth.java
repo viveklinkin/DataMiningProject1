@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
 import main.imodel.Node;
 import main.model.FPTree;
 import main.model.ItemSet;
@@ -26,34 +28,35 @@ public class FPGrowth {
 	private int minsup;
 	private int size;
 
-	// private static final List<Integer> callstack = new ArrayList<>();
-
 	public FPGrowth(FPTree tree, int minsup, int size) {
 		this.tree = tree;
 		this.minsup = minsup;
 		this.size = size;
 	}
 
-	public Map<Integer, List<ItemSet>> performFPGrowth() {
-		Map<Integer, List<ItemSet>> res = new HashMap<>();
-		int per = 0, pre = 0;
-		for (Integer item : tree.getLexOrder().keySet()) {
+	public Map<Set<Integer>, Integer> performFPGrowth() {
+		Map<Set<Integer>, Integer> res = new HashMap<>();
+		int per = 0, pre = -1;
+		for (final Integer item : tree.getLexOrder().keySet()) {
 			if (tree.getFrequency(item) >= minsup) {
 				Map<Integer, List<Node>> meta = tree.getMeta();
 				per = (item*100) / tree.getLexOrder().size();
 				if (per > pre) {
-					System.out.print("\n" + per + "%");
+					//System.out.print("\n" + per + "%");
 					pre = per;
 				}
 				tree.project(item);
-				// callstack.add(item);
 				List<ItemSet> frequentSets = performFPGrowth(item);
 				for (ItemSet is : frequentSets) {
 					is.add(item);
 				}
-				res.put(item, frequentSets);
 				tree.applyMeta(meta);
-				// callstack.clear();
+				frequentSets.add(new ItemSet(new HashSet<Integer>(){{
+					add(item);
+				}}, tree.getFrequency(item)));
+                for(ItemSet is : frequentSets){
+                	res.put(is.getItems(), is.getSupport());
+                }
 			}
 		}
 		return res;
@@ -63,16 +66,14 @@ public class FPGrowth {
 
 	private List<ItemSet> performFPGrowth(final Integer prefix) {
 		List<ItemSet> res = new ArrayList<>();
-		// System.out.println("CALLSTACK:" + callstack);
 		if (tree.isEmpty()) {
-			System.out.println(prefix);
 			return res;
 		}
 		for (final Integer item : tree.getLexOrder().keySet()) {
 			if (tree.getLexIndexOf(item) >= tree.getLexIndexOf(prefix)) {
 				continue;
 			}
-			if (progress++ % 1000 == 0)System.out.print(".");
+			//if (progress++ % 1000 == 0)System.out.print(".");
 			if (tree.getFrequency(item) >= minsup) {
 				Map<Integer, Integer> prevFreq = new HashMap<>();
 				for (Entry<Integer, Integer> ee : tree.getItemFrequency()
@@ -86,12 +87,10 @@ public class FPGrowth {
 					}
 				}, tree.getFrequency(item));
 				tree.project(item);
-				// callstack.add(item);
 				List<ItemSet> frequentSets = performFPGrowth(item);
 				for (ItemSet currentItemSet : frequentSets) {
 					currentItemSet.add(item);
 				}
-				// callstack.remove(callstack.size() - 1);
 				frequentSets.add(is);
 				res.addAll(frequentSets);
 				tree.applyMeta(meta);
