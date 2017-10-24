@@ -1,3 +1,4 @@
+run: make test
 java fptminer 1000 0.8   /home/grad06/vaidy083/inter /home/grad06/vaidy083/confidences10008
 ******************FPTreeMiner******************
 Starting
